@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #918c8c; /* Dark background color */
+    background-color: #65516a; /* Dark background color */
     padding: 10px 20px; /* Padding for spacing */
 }
 
@@ -36,7 +36,7 @@
 }
 
 .navbar-links a:hover {
-    background-color: #575757; /* Background color on hover */
+    background-color: #979494; /* Background color on hover */
 }
 
 @media (max-width: 768px) {

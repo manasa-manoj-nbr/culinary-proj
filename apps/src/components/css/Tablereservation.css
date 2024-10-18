@@ -5,19 +5,22 @@ body {
   
   h1 {
     text-align: center;
-    color: #333;
+    color: #533456;
+    text-decoration: underline;
   }
   
-  form {
+
+   .form-container {
     background-color: #f9f9f9;
     border-radius: 8px;
     padding: 20px;
     max-width: 400px;
     margin: 20px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
   
-  input {
+  .input-field {
     display: block;
     width: 100%;
     padding: 10px;
@@ -27,8 +30,8 @@ body {
     font-size: 16px;
   }
   
-  button {
-    background-color: #4CAF50;
+  .button-submit {
+    background-color: #6e4478;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -37,7 +40,11 @@ body {
     cursor: pointer;
   }
   
+  .textarea-field {
+    height: 80px;
+  }
+
   button:hover {
-    background-color: #45a049;
+    background-color: #935f9b;
   }
   

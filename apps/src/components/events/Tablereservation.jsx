@@ -1,25 +1,33 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../other/Navbar';
+import '../css/Tablereservation.css'; 
+import Navbar from '../other/Navbar'
 
 function TableReservation() {
-  const [tables, setTables] = useState([]); // Store available tables from the backend
+  const [tables, setTables] = useState([]); 
   const [reservation, setReservation] = useState({
     date: '', 
     time: '',
-    tableID: '',
-    spclReq: '',
-    number: '',
+    table: '',  
+    special_requests: '',
+    number_of_people: '',
   });
+  const [error, setError] = useState(''); // State to hold error messages
 
   useEffect(() => {
-    // Fetch available tables from the backend API
     const fetchTables = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/tables/');
-        setTables(response.data);
+        console.log('API Response:', response.data);
+
+        if (response.data && response.data.length > 0) {
+          setTables(response.data);
+        } else {
+          throw new Error("No tables returned from API");
+        }
       } catch (error) {
-        console.error('Error fetching tables:', error);
+        console.error('Error fetching tables from API, using dummy data:', error);
       }
     };
     fetchTables();
@@ -31,37 +39,44 @@ function TableReservation() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const payload = {
+      ...reservation,
+      table: parseInt(reservation.table),
+      number_of_people: parseInt(reservation.number_of_people)
+    };
+
     try {
-      const response = await axios.post('http://localhost:8000/api/reservations/', reservation);
+      const response = await axios.post('http://localhost:8000/api/reservations/', payload);
       console.log('Booking successful:', response.data);
       alert('Reservation successful!');
-      
-      // Reset form fields after successful submission
+      setError(''); // Clear any previous error messages
+
       setReservation({
-        date: '',
+        date: '', 
         time: '',
-        tableID: '',
-        spclReq: '',
-        number: '',
+        table: '',
+        special_requests: '',
+        number_of_people: '',
       });
     } catch (error) {
       console.error('Error making reservation:', error.response?.data || error.message);
-      alert('There was an error making the reservation. Please try again.');
+      setError(error.response?.data?.non_field_errors?.[0] || 'There was an error making the reservation. Please try again.');
     }
   };
 
   return (
     <div>
-        <Navbar />
-      <h1 style={{ textAlign: 'center', color: '#333' }}>Table Reservation</h1>
-      <form onSubmit={handleSubmit} style={formStyle}>
+      <Navbar />
+      <h1 >Table Reservation</h1>
+      <form onSubmit={handleSubmit} className="form-container">
+        {error && <div className="error-message">{error}</div>} {/* Display error messages */}
         <input 
           type="date" 
           name="date" 
           value={reservation.date}
           onChange={handleChange} 
           placeholder="Reservation Date" 
-          style={inputStyle}
+          className="input-field"
           required 
         />
         <input
@@ -70,76 +85,45 @@ function TableReservation() {
           value={reservation.time}
           onChange={handleChange}
           placeholder="Reservation Time"
-          style={inputStyle}
+          className="input-field"
           required
         />
         <select
-          name="tableID"
-          value={reservation.tableID}
+          name="table"
+          value={reservation.table}
           onChange={handleChange}
-          style={inputStyle}
+          className="input-field"
           required
         >
           <option value="">Select Table</option>
           {tables.map((table) => (
-            <option key={table.TableID} value={table.TableID}>
-              Table {table.TableID} - {table.Location} ({table.Capacity} seats)
+            <option key={table.id} value={table.id}>
+              Table {table.id} - {table.location} ({table.capacity} seats)
             </option>
           ))}
         </select>
         <input
           type="number"
-          name="number"
-          value={reservation.number}
+          name="number_of_people"
+          value={reservation.number_of_people}
           onChange={handleChange}
           placeholder="Number of People"
-          style={inputStyle}
+          className="input-field"
           min="1"
           max="10"
           required
         />
         <textarea
-          name="spclReq"
-          value={reservation.spclReq}
+          name="special_requests"
+          value={reservation.special_requests}
           onChange={handleChange}
           placeholder="Special Requests (Optional)"
-          style={{ ...inputStyle, height: '80px' }}
+          className="input-field textarea-field"
         />
-        <button type="submit" style={buttonStyle}>Reserve</button>
+        <button type="submit" className="button-submit">Reserve</button>
       </form>
     </div>
   );
 }
-
-// Styles for form and inputs
-const formStyle = {
-  backgroundColor: '#f9f9f9',
-  borderRadius: '8px',
-  padding: '20px',
-  maxWidth: '400px',
-  margin: '20px auto',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  textAlign: 'center'
-};
-
-const inputStyle = {
-  display: 'block',
-  width: '100%',
-  padding: '10px',
-  marginBottom: '10px',
-  borderRadius: '4px',
-  border: '1px solid #ccc',
-  fontSize: '16px',
-};
-
-const buttonStyle = {
-  backgroundColor: '#4CAF50',
-  color: 'white',
-  border: 'none',
-  padding: '10px 20px',
-  fontSize: '16px',
-  borderRadius: '4px',
-  cursor: 'pointer',
-};
 
 export default TableReservation;

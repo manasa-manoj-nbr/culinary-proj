@@ -1,26 +1,29 @@
-.header {
+
+   .header {
+    background-color: #a194b8;
+    color: white;
     text-align: center;
-    background-color: #f8f8f8;
     padding: 20px;
   }
   
   .tagline {
     font-size: 2.5rem;
-    color: #333;
+    margin: 0;
+    color: white;
+    text-decoration: none;
   }
   
   .description {
     font-size: 1.2rem;
-    color: #666;
   }
   
   .services {
-    padding: 20px;
-    background-color: #fff;
+    text-align: center;
+    margin: 20px 0;
   }
   
   .services h2 {
-    text-align: center;
+    font-size: 2rem;
   }
   
   .services ul {
@@ -29,19 +32,16 @@
   }
   
   .services li {
-    font-size: 1.2rem;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
+    margin: 10px 0;
   }
   
-  .services a{
-    text-decoration: none;
-  }
   .menu {
     text-align: center;
-    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  .menu h2 {
+    font-size: 2rem;
   }
   
   .dropdown {
@@ -50,9 +50,9 @@
   }
   
   .dropbtn {
-    background-color: #4CAF50;
+    background-color: #9a759c;
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -80,5 +80,17 @@
   
   .dropdown-content a:hover {
     background-color: #f1f1f1;
+  }
+  
+  .about {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #a9b0a9;
+    color: white;
   }
   
