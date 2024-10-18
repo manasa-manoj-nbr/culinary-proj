@@ -1,0 +1,36 @@
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .button-submit {
+    padding: 10px;
+    background-color: #65356c;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button-submit:hover {
+    background-color: #823886;
+  }
+  
+  .success-message {
+    color: green;
+    text-align: center;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  
